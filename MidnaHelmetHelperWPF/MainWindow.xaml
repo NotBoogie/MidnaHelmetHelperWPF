@@ -1,0 +1,12 @@
+﻿<Window x:Class="MidnaHelmetHelperWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:h="http://helix-toolkit.org/wpf"
+        Title="Getting Started Demo" Height="480" Width="640">
+
+	<h:HelixViewport3D >
+		<h:DefaultLights/>
+		<h:Teapot/>
+	</h:HelixViewport3D>
+
+</Window>
