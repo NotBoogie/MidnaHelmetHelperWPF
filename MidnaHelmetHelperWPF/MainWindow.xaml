@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:h="http://helix-toolkit.org/wpf"
-        Title="Getting Started Demo" Height="480" Width="640">
+        Title="Getting Started Demo" Height="480" Width="640"
+		AllowsTransparency="True"
+		WindowStyle="None">
 
 	<h:HelixViewport3D >
 		<h:DefaultLights/>

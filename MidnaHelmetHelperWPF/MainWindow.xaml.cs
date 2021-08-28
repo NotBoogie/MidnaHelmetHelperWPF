@@ -37,9 +37,14 @@ namespace MidnaHelmetHelperWPF
             hVp3D.Children.Add(teaPot);
             //this.AddChild(hVp3D);
             var bc = new BrushConverter();
-
-            this.Background = (Brush)bc.ConvertFrom("#FF222222");
-            
+            var imageBrush = new ImageBrush(Clipboard.GetImage());
+            imageBrush.Stretch = Stretch.None;
+            var transparentBrush = new SolidColorBrush();
+            transparentBrush.Opacity = 0;
+            transparentBrush.Color = Color.FromArgb(1,255,0,0);
+            //this.Background = (Brush)bc.ConvertFrom("#FF222222");
+           // this.Background = (Brush)imageBrush;
+            this.Background = transparentBrush;
         }
     }
 }
