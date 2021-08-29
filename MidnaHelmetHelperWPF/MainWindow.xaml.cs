@@ -26,6 +26,7 @@ namespace MidnaHelmetHelperWPF
         {
             this.InitializeComponent();
             Create3DViewPort();
+
         }
 
         private void Create3DViewPort()
@@ -45,6 +46,39 @@ namespace MidnaHelmetHelperWPF
             //this.Background = (Brush)bc.ConvertFrom("#FF222222");
            // this.Background = (Brush)imageBrush;
             this.Background = transparentBrush;
+        }
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            //WindowsServices.SetWindowExTransparent(hwnd);
+        }
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // do some stuff here.
+            // this.IsHitTestVisible = false;
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            WindowsServices.SetWindowExTransparent(hwnd);
+        }
+        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // do some stuff here.
+            // this.IsHitTestVisible = false;
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            WindowsServices.SetWindowExNotTransparent(hwnd);
+        }
+        private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // do some stuff here.
+            // this.IsHitTestVisible = false;
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            WindowsServices.SetWindowExNotTransparent(hwnd);
+        }
+        //https://stackoverflow.com/questions/4647345/how-can-i-make-a-window-invisible-to-mouse-events-in-wpf
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            WindowsServices.SetWindowExNotTransparent(hwnd);
         }
     }
 }

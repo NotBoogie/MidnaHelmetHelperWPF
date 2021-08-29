@@ -4,7 +4,13 @@
         xmlns:h="http://helix-toolkit.org/wpf"
         Title="Getting Started Demo" Height="480" Width="640"
 		AllowsTransparency="True"
-		WindowStyle="None">
+		WindowStyle="None"
+		Topmost = "True"
+		MouseLeftButtonDown="Window_MouseLeftButtonDown"
+		MouseRightButtonDown="Window_MouseRightButtonDown"
+		MouseLeftButtonUp="Window_MouseLeftButtonUp"
+		KeyDown="Window_KeyDown"
+		>
 
 	<h:HelixViewport3D >
 		<h:DefaultLights/>
