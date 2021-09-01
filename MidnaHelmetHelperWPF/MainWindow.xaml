@@ -2,19 +2,49 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:h="http://helix-toolkit.org/wpf"
-        Title="Getting Started Demo" Height="480" Width="640"
-		AllowsTransparency="True"
-		WindowStyle="None"
+        Title="Fused Shadow Helper" Height="480" Width="640"
+		WindowStyle="None" AllowsTransparency="True"
+		 ResizeMode="CanResizeWithGrip"
+    Background="Transparent"
 		Topmost = "True"
-		MouseLeftButtonDown="Window_MouseLeftButtonDown"
-		MouseRightButtonDown="Window_MouseRightButtonDown"
-		MouseLeftButtonUp="Window_MouseLeftButtonUp"
-		KeyDown="Window_KeyDown"
+		
 		>
 
-	<h:HelixViewport3D >
-		<h:DefaultLights/>
-		<h:Teapot/>
-	</h:HelixViewport3D>
+	<Window.Resources>
+		<LinearGradientBrush x:Key="WindowFrameBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+			<GradientStop Color="CadetBlue" Offset="0.4"/>
+			<GradientStop Color="Gray" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Resources>
+	<Border Background="#50FFFFFF" CornerRadius="5" BorderBrush="{StaticResource WindowFrameBrush}" BorderThickness="2,0,2,2">
+		<Grid ShowGridLines="True">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30" />
+				<RowDefinition/>
+				<RowDefinition Height="auto" />
+			</Grid.RowDefinitions>
+			<Border Grid.Row="0" Background="{StaticResource WindowFrameBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              CornerRadius="5,5,0,0" Margin="-1,0,-1,0" MouseLeftButtonDown="DragWindow">
+				<Grid>
+					<TextBlock Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,130,0"
+            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}"/>
+					<Button Name="MinimizeButton" Content="LOCK" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="585,0,0,0" FontSize="7"
+                  Width="27" Height="15" Padding="0" MouseLeftButtonDown="LockWindow"/>
+					<Button Name="ImageButton" Content="X" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="7"
+                  Width="15" Height="15" Padding="0" MouseLeftButtonDown="CloseOut"/>
+
+				</Grid>
+
+			</Border>
+			<h:HelixViewport3D Grid.Row="1" MouseLeftButtonDown="Window_MouseLeftButtonDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+				<h:DefaultLights/>
+				<ModelVisual3D x:Name="model"/>
+
+			</h:HelixViewport3D>
+		</Grid>
+
+	</Border>
+
 
 </Window>
