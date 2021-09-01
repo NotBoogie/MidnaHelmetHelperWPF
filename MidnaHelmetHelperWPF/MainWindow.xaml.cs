@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HelixToolkit;
 using HelixToolkit.Wpf;
+using System.Text.RegularExpressions;
 
 namespace MidnaHelmetHelperWPF
 {
@@ -32,6 +33,7 @@ namespace MidnaHelmetHelperWPF
         //ctrl+f10
         //https://github.com/helix-toolkit/helix-toolkit/wiki/Features-(WPF)
         private HwndSource _source;
+        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //numbers only
         public MainWindow()
         {
             this.InitializeComponent();
@@ -42,6 +44,15 @@ namespace MidnaHelmetHelperWPF
                 WindowsServices.SetWindowExTransparent(hwnd);
             };
         }
+        public new void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+        
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
         public void load3dModel()
         {
             ObjReader CurrentHelixObjReader = new ObjReader();
@@ -51,22 +62,33 @@ namespace MidnaHelmetHelperWPF
             string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             System.Windows.Media.Media3D.Model3DGroup MyModel = CurrentHelixObjReader.Read(currentDirectory+ @"\Models\FusedShadowFull.obj");
             model.Content = MyModel;
+            model.AnimateOpacity(50, 1);
+        
             //MyModel.Children.Add(MyModel);
 
 
+        }
+        private void SetClipboardAsBG()
+        {
+            var imageBrush = new ImageBrush(Clipboard.GetImage());
+        imageBrush.Stretch = Stretch.None;
+            this.Background = (Brush)imageBrush;
+        }
+        private void SlideOpacity(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var Opac = OpacitySlider.Value;
+            model.AnimateOpacity(Opac, 1);
         }
         private void Create3DViewPort()
         {
             var hVp3D = new HelixViewport3D();
             var lights = new DefaultLights();
-            var teaPot = new Teapot();
             hVp3D.Children.Add(lights);
             // hVp3D.Children.Add(teaPot);
             load3dModel();
             //this.AddChild(hVp3D);
             var bc = new BrushConverter();
-            var imageBrush = new ImageBrush(Clipboard.GetImage());
-            imageBrush.Stretch = Stretch.None;
+            
             var transparentBrush = new SolidColorBrush();
             transparentBrush.Opacity = 1;
             transparentBrush.Color = Color.FromArgb(1,255,0,0);
@@ -80,10 +102,6 @@ namespace MidnaHelmetHelperWPF
             DragMove();
         }
 
-        public void WindowClicked(object sender, MouseButtonEventArgs args)
-        {
-            Close();
-        }
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)

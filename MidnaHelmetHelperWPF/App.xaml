@@ -4,6 +4,47 @@
              xmlns:local="clr-namespace:MidnaHelmetHelperWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+
+        <Style TargetType="Button" x:Key="customButton">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="#FF06FCB1"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+CornerRadius="5"
+BorderThickness="1"
+Padding="5"
+BorderBrush="#000">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers  Binding="{Binding IsCheckedFlag}">
+                           
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="#fff"/>
+                </Trigger>
+               
+                <Trigger Property="IsPressed" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="CadetBlue"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

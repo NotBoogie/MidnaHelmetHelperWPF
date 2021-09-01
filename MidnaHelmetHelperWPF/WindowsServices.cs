@@ -20,10 +20,10 @@ namespace MidnaHelmetHelperWPF
         static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
         [DllImport("User32.dll")]
         private static extern bool RegisterHotKey(
-[In] IntPtr hWnd,
-[In] int id,
-[In] uint fsModifiers,
-[In] uint vk);
+        [In] IntPtr hWnd,
+        [In] int id,
+        [In] uint fsModifiers,
+        [In] uint vk);
 
         [DllImport("User32.dll")]
         private static extern bool UnregisterHotKey(
@@ -44,18 +44,9 @@ namespace MidnaHelmetHelperWPF
             SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle & ~WS_EX_TRANSPARENT);
         }
 
-
-        /*  protected override void OnClosed(EventArgs e)
-          {
-              _source.RemoveHook(HwndHook);
-              _source = null;
-              UnregisterHotKey();
-              base.OnClosed(e);
-          }*/
-
+        //ctrl+f10
         public void RegisterHotKey(IntPtr hwnd)
         {
-            //var helper = new WindowInteropHelper(this);
             const uint VK_F10 = 0x79;
             const uint MOD_CTRL = 0x0002;
             if (!RegisterHotKey( hwnd, HOTKEY_ID, MOD_CTRL, VK_F10))
@@ -66,7 +57,6 @@ namespace MidnaHelmetHelperWPF
 
         private void UnregisterHotKey(IntPtr hwnd)
         {
-           // var helper = new WindowInteropHelper(hwnd);
             UnregisterHotKey(hwnd, HOTKEY_ID);
         }
 
@@ -90,8 +80,6 @@ namespace MidnaHelmetHelperWPF
 
         private void OnHotKeyPressed(IntPtr hwnd)
         {
-            // do stuff
-            //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
             WindowsServices.SetWindowExNotTransparent(hwnd);
         }
     }
