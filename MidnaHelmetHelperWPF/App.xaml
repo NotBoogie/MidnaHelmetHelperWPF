@@ -23,9 +23,7 @@ BorderBrush="#000">
 
                             </ContentPresenter>
                         </Border>
-                        <ControlTemplate.Triggers  Binding="{Binding IsCheckedFlag}">
-                           
-                        </ControlTemplate.Triggers>
+
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

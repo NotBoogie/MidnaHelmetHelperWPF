@@ -34,6 +34,7 @@ namespace MidnaHelmetHelperWPF
         //https://github.com/helix-toolkit/helix-toolkit/wiki/Features-(WPF)
         private HwndSource _source;
         private static readonly Regex _regex = new Regex("[^0-9.-]+"); //numbers only
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -77,6 +78,7 @@ namespace MidnaHelmetHelperWPF
         private void SlideOpacity(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             var Opac = OpacitySlider.Value;
+            if(model != null)
             model.AnimateOpacity(Opac, 1);
         }
         private void Create3DViewPort()
