@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using HelixToolkit;
 using HelixToolkit.Wpf;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Media3D;
 
 namespace MidnaHelmetHelperWPF
 {
@@ -137,6 +138,36 @@ namespace MidnaHelmetHelperWPF
             //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
             //WindowsServices.SetWindowExTransparent(hwnd);
         }
-
+        private double angleTracker;
+        private void rotate(object sender, EventArgs e)
+        {
+            if (this.angleTracker >= 360)
+            {
+                this.angleTracker = 0;
+            }
+            else
+            {
+                //Nothing to do
+            }
+            this.angleTracker = this.angleTracker + 0.25;
+            //You can adapt the code if you have many children 
+            GeometryModel3D geometryModel3D = (GeometryModel3D)((Model3DGroup)model.Content).Children.First();
+            if (geometryModel3D.Transform is RotateTransform3D rotateTransform3 && rotateTransform3.Rotation is AxisAngleRotation3D rotation)
+            {
+                rotation.Angle = this.angleTracker;
+            }
+            else
+            {
+                ///Initialize the Transform (I didn't do it in my example but you could do this initialization in <see Load3dModel/>)
+                geometryModel3D.Transform = new RotateTransform3D()
+                {
+                    Rotation = new AxisAngleRotation3D()
+                    {
+                        Axis = new Vector3D(0, 1, 0),
+                        Angle = this.angleTracker,
+                    }
+                };
+            }
+        }
     }
 }
