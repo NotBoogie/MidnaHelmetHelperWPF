@@ -31,7 +31,10 @@
                     <TextBlock Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,130,0"
             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}"/>
 
-                    <Button Content="LOCK" Width="61" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="439,0,0,0" Click="Button_Click"/>
+                    <Button Name ="LockTransparencyButton" Content="LOCK" Width="61" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="439,0,0,0" Click="Button_Click"/>
+                    <Button Name ="ReleaseTransparencyButton" Content="UNLOCK" Width="61" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="380,0,0,0" Click="Button_Click"/>
+                    <Button Name="SpawnOverlayButton" Content="OVERLAY" Width="61" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="339,0,0,0" Click="Button_Click"/>
+                    <Button Name="RemoveOverlayButton" Content="REMOVE OVERLAY" Width="61" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="239,0,0,0" Click="Button_Click"/>
 
                     <Button  Name="PasteBackgroundButton" Content="BG" Width="42" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="508,1,0,-1"/>
                     <Button  Name="MinimizeButton" Content="-" Width="38" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="557,1,0,-1"/>

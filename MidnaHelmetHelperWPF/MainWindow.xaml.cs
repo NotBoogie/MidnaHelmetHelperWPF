@@ -35,15 +35,29 @@ namespace MidnaHelmetHelperWPF
         //https://github.com/helix-toolkit/helix-toolkit/wiki/Features-(WPF)
         private HwndSource _source;
         private static readonly Regex _regex = new Regex("[^0-9.-]+"); //numbers only
-
+        private OvelayPopup overlayPopup;
         public MainWindow()
         {
             this.InitializeComponent();
             Create3DViewPort();
             ImageButton.Click += (s, e) => { Close(); };
-            MinimizeButton.Click += (s, e) => {
-                var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            LockTransparencyButton.Click += (s, e) => {
+                //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                var hwnd = new System.Windows.Interop.WindowInteropHelper(overlayPopup).Handle;
                 WindowsServices.SetWindowExTransparent(hwnd);
+            };
+            ReleaseTransparencyButton.Click += (s, e) => {
+                //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                var hwnd = new System.Windows.Interop.WindowInteropHelper(overlayPopup).Handle;
+                WindowsServices.SetWindowExNotTransparent(hwnd);
+            };
+            SpawnOverlayButton.Click += (s, e) => {
+                if(overlayPopup==null)
+                overlayPopup = new OvelayPopup();
+                    overlayPopup.Show();
+            };
+            RemoveOverlayButton.Click += (s, e) => {
+                overlayPopup.Hide();
             };
         }
         public new void PreviewTextInput(object sender, TextCompositionEventArgs e)
