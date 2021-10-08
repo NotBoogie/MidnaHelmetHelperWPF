@@ -1,6 +1,8 @@
-﻿using System;
+﻿using HelixToolkit.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +24,50 @@ namespace MidnaHelmetHelperWPF
         public OvelayPopup()
         {
             InitializeComponent();
+            Create3DViewPort();
+        }
+        public void DragWindow(object sender, MouseButtonEventArgs args)
+        {
+            DragMove();
+        }
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // do some stuff here.
+            // this.IsHitTestVisible = false;
+            //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            //WindowsServices.SetWindowExTransparent(hwnd);
+        }
+        public void load3dModel(string modelLocation = "")
+        {
+            //ObjReader CurrentHelixObjReader = new ObjReader();
+            ObjReader CurrentHelixObjReader = new HelixToolkit.Wpf.ObjReader();
+
+            // Model3DGroup MyModel = CurrentHelixObjReader.Read(@"D:\3DModel\dinosaur_FBX\dinosaur.fbx");
+            //System.Windows.Media.Media3D.Model3DGroup MyModel = CurrentHelixObjReader.Read(@"C:\Users\Jiji\Desktop\Midna Helmet Helper\Fused Shadow.obj");
+            string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            if (modelLocation == "")
+                modelLocation = currentDirectory + @"\Models\FusedShadowNoBackTopo.obj";
+            System.Windows.Media.Media3D.Model3DGroup MyModel = CurrentHelixObjReader.Read(modelLocation);
+            model.Content = MyModel;
+            //MyModel.Children.Add(MyModel);
+        }
+        private void Create3DViewPort()
+        {
+            var hVp3D = new HelixViewport3D();
+            var lights = new DefaultLights();
+            hVp3D.Children.Add(lights);
+            // hVp3D.Children.Add(teaPot);
+            load3dModel();
+            //this.AddChild(hVp3D);
+            var bc = new BrushConverter();
+
+            var transparentBrush = new SolidColorBrush();
+            transparentBrush.Opacity = 1;
+            transparentBrush.Color = Color.FromArgb(1, 255, 0, 0);
+            //this.Background = (Brush)bc.ConvertFrom("#FF222222");
+            // this.Background = (Brush)imageBrush;
+            //http://blogs.interknowlogy.com/2007/06/20/transparent-windows-in-wpf-2/
+            this.Background = transparentBrush;
         }
     }
 }
