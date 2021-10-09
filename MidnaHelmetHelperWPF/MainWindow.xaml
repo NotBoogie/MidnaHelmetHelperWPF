@@ -33,7 +33,7 @@
 
 					<Button  Name="MinimizeButton" Content="-" Width="38" Height="30" Style="{StaticResource customButton}" HorizontalAlignment="Right" Margin="0,4,110,4" Click="minimizeToTray"/>
 					<Button  Name="HelpButton" Content="?" Width="38" Height="30" Style="{StaticResource customButton}" HorizontalAlignment="Right" Margin="0,4,60,4" Click="helpPopup"/>
-					<Button  Name="ImageButton" Content="X" Width="38" Height="30" Style="{StaticResource customButton}" HorizontalAlignment="Right" Margin="0,4,10,4"/>
+                    <Button  Name="ImageButton" Content="X" Width="38" Height="30" Style="{StaticResource customButton}" HorizontalAlignment="Right" Margin="0,4,10,4" Click="closeApp"/>
 				</Grid>
 
 			</Border>
@@ -56,12 +56,12 @@
 					</GroupBox.Header>
 					<StackPanel Orientation = "Vertical">
 						<StackPanel Orientation = "Horizontal">
-						<Button Name ="LockTransparencyButton" Content="LOCK" Width="80" Height="30" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" />
-						<Button Name ="ReleaseTransparencyButton" Content="UNLOCK" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" />
+                                <Button Name ="LockTransparencyButton" Content="LOCK" Width="80" Height="30" Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" Click="lockTransparency"/>
+                                <Button Name ="ReleaseTransparencyButton" Content="UNLOCK" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" Click="releaseTransparency"/>
 					</StackPanel>
 						<StackPanel Orientation = "Horizontal">
-						<Button  Name="SpawnOverlayButton" Content="SHOW" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2"/>
-						<Button Name="RemoveOverlayButton" Content="HIDE" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" />
+                                <Button  Name="SpawnOverlayButton" Content="SHOW" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" Click="showOverlay"/>
+                                <Button Name="RemoveOverlayButton" Content="HIDE" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" Click="hideOverlay"/>
 						</StackPanel>
 						<StackPanel Orientation = "Horizontal">
 							<Button Name="PasteBackgroundButton" Content="PASTE BG" Width="80" Height="30"  Style="{StaticResource customButton}" HorizontalAlignment="Left" Margin="2" Click="SetClipboardAsBG"/>

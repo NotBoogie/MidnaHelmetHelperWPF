@@ -28,6 +28,29 @@ namespace MidnaHelmetHelperWPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    public class textureControl
+    {
+        private Button _toggleButton;
+        private string _fileLocation;
+
+        public Button toggleButton
+        {
+            get => _toggleButton;
+            set
+            {
+                    _toggleButton = value;
+            }
+        }
+
+        public string fileLocation
+        {
+            get => _fileLocation;
+            set
+            {
+                _fileLocation = value;
+            }
+        }
+    }
     public partial class MainWindow
     {
 
@@ -37,6 +60,7 @@ namespace MidnaHelmetHelperWPF
         private static readonly Regex _regex = new Regex("[^0-9.-]+"); //numbers only
         private OvelayPopup overlayPopup;
         private System.Windows.Media.Media3D.ModelVisual3D overlayPopupModel;
+        private Dictionary<string, string> textureDictionary = new Dictionary<string, string>();
         private string currentTexture = "";
         private string baseTexture = "";
         private string lineTexture = "";
@@ -48,39 +72,44 @@ namespace MidnaHelmetHelperWPF
             if (overlayPopup == null)
                 overlayPopup = new OvelayPopup();
             loadOverlayModel();
-            ImageButton.Click += (s, e) => {
-                if(overlayPopup != null)
-                overlayPopup.Close();
-                Close(); 
-            };
-            LockTransparencyButton.Click += (s, e) => {
-                //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-                highlightButton(LockTransparencyButton, true);
-                highlightButton(ReleaseTransparencyButton, false);
-                var hwnd = new System.Windows.Interop.WindowInteropHelper(overlayPopup).Handle;
-                WindowsServices.SetWindowExTransparent(hwnd);
-            };
-            ReleaseTransparencyButton.Click += (s, e) => {
-                //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-                highlightButton(LockTransparencyButton, false);
-                highlightButton(ReleaseTransparencyButton, true);
-                var hwnd = new System.Windows.Interop.WindowInteropHelper(overlayPopup).Handle;
-                WindowsServices.SetWindowExNotTransparent(hwnd);
-            };
-            SpawnOverlayButton.Click += (s, e) => {
-                showOverlay();
-            };
-            RemoveOverlayButton.Click += (s, e) => {
-                hideOverlay();
-            };
             
-            loadTexture();
+            loadTextures();
             highlightButton(BaseMaterial, true);
-            swapTexture2(currentTexture, true, false, false);
+            swapTexture2(textureDictionary["current"], true, false, false);
             highlightButton(HidePolyBacks, true);
             //overlayPopupModel = overlayPopup.model;
         }
+        private void closeApp(object sender, RoutedEventArgs e)
+        {
+            if (overlayPopup != null)
+                overlayPopup.Close();
+            Close();
+        }
+            private void lockTransparency(object sender, RoutedEventArgs e)
+        {
+            //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            highlightButton(LockTransparencyButton, true);
+            highlightButton(ReleaseTransparencyButton, false);
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(overlayPopup).Handle;
+            WindowsServices.SetWindowExTransparent(hwnd);
+        }
+        private void releaseTransparency(object sender, RoutedEventArgs e)
+        {
+            //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            highlightButton(LockTransparencyButton, false);
+            highlightButton(ReleaseTransparencyButton, true);
+            var hwnd = new System.Windows.Interop.WindowInteropHelper(overlayPopup).Handle;
+            WindowsServices.SetWindowExNotTransparent(hwnd);
+        }
 
+        private void showOverlay(object sender, RoutedEventArgs e)
+        {
+            showOverlay();
+        }
+        private void hideOverlay(object sender, RoutedEventArgs e)
+        {
+            hideOverlay();
+        }
         private void minimizeToTray(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -116,34 +145,34 @@ namespace MidnaHelmetHelperWPF
         private void showBacks(object sender, RoutedEventArgs e)
         {
             backsShown = true;
-            swapTexture2(currentTexture, frontsShown, backsShown,false);
+            swapTexture2(textureDictionary["current"], frontsShown, backsShown,false);
             highlightButton(ShowPolyBacks, true);
             highlightButton(HidePolyBacks, false);
         }
         private void hideBacks(object sender, RoutedEventArgs e)
         {
             backsShown = false;
-            swapTexture2(currentTexture, frontsShown, backsShown, false);
+            swapTexture2(textureDictionary["current"], frontsShown, backsShown, false);
             highlightButton(ShowPolyBacks, false);
             highlightButton(HidePolyBacks, true);
         }
         private void loadBaseTexture(object sender, RoutedEventArgs e)
         {
-            swapTexture2(baseTexture, frontsShown, backsShown);
+            swapTexture2(textureDictionary["base"], frontsShown, backsShown);
             highlightButton(BaseMaterial, true);
             highlightButton(LineMaterial, false);
             highlightButton(CustomMaterial, false);
         }
         private void loadLineTexture(object sender, RoutedEventArgs e)
         {
-            swapTexture2(lineTexture, frontsShown, backsShown);
+            swapTexture2(textureDictionary["line"], frontsShown, backsShown);
             highlightButton(BaseMaterial, false);
             highlightButton(LineMaterial, true);
             highlightButton(CustomMaterial, false);
         }
         private void loadOriginalTexture(object sender, RoutedEventArgs e)
         {
-            swapTexture2(baseTexture, frontsShown, backsShown);
+            swapTexture2(textureDictionary["base"], frontsShown, backsShown);
             highlightButton(BaseMaterial, false);
             highlightButton(LineMaterial, true);
             highlightButton(CustomMaterial, false);
@@ -185,15 +214,24 @@ namespace MidnaHelmetHelperWPF
             if (overlayPopup != null)
                 overlayPopupModel = overlayPopup.model;
         }
-        private void loadTexture()
+        private void loadTextures()
         {
             string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            if (textureDictionary["current"] == "")
+                textureDictionary["current"] = currentDirectory + @"\Models\4.png";
+            if (textureDictionary["line"] == "")
+                textureDictionary["line"] = currentDirectory + @"\Models\4.png";
+            if (textureDictionary["base"] == "")
+                textureDictionary["base"] = currentDirectory + @"\Models\4.png";
+            /*
             if (currentTexture == "")
                 currentTexture = currentDirectory + @"\Models\4.png";
             if (lineTexture == "")
                 lineTexture = currentDirectory + @"\Models\4.png"; 
             if (baseTexture == "")
                 baseTexture = currentDirectory + @"\Models\4.png";
+            */
         }
         private static bool IsTextAllowed(string text)
         {
@@ -309,7 +347,7 @@ namespace MidnaHelmetHelperWPF
 
         private void swapTexture2(string texturePath, bool fronts, bool backs, bool refreshFront=true)
         {
-            currentTexture = texturePath;
+            textureDictionary["current"] = texturePath;
             Material myMaterial = MaterialHelper.CreateImageMaterial(texturePath, 1);
             Material transpMaterial = new DiffuseMaterial(Brushes.Transparent);
             for (int i = 0; i < ((System.Windows.Media.Media3D.Model3DGroup)overlayPopupModel.Content).Children.Count; i++)
