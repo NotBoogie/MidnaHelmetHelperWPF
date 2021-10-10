@@ -218,11 +218,11 @@ namespace MidnaHelmetHelperWPF
         {
             string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            if (textureDictionary["current"] == "")
+            if (!textureDictionary.ContainsKey("current"))
                 textureDictionary["current"] = currentDirectory + @"\Models\4.png";
-            if (textureDictionary["line"] == "")
+            if (!textureDictionary.ContainsKey("line"))
                 textureDictionary["line"] = currentDirectory + @"\Models\4.png";
-            if (textureDictionary["base"] == "")
+            if (!textureDictionary.ContainsKey("base"))
                 textureDictionary["base"] = currentDirectory + @"\Models\4.png";
             /*
             if (currentTexture == "")
@@ -347,6 +347,8 @@ namespace MidnaHelmetHelperWPF
 
         private void swapTexture2(string texturePath, bool fronts, bool backs, bool refreshFront=true)
         {
+            if (overlayPopup.model != null)
+                return;
             textureDictionary["current"] = texturePath;
             Material myMaterial = MaterialHelper.CreateImageMaterial(texturePath, 1);
             Material transpMaterial = new DiffuseMaterial(Brushes.Transparent);

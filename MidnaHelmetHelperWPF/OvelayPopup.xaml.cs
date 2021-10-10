@@ -47,8 +47,15 @@ namespace MidnaHelmetHelperWPF
             string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             if (modelLocation == "")
                 modelLocation = currentDirectory + @"\Models\FusedShadowNoBackTopo.obj";
-            System.Windows.Media.Media3D.Model3DGroup MyModel = CurrentHelixObjReader.Read(modelLocation);
-            model.Content = MyModel;
+            try
+            {
+                System.Windows.Media.Media3D.Model3DGroup MyModel = CurrentHelixObjReader.Read(modelLocation);
+                model.Content = MyModel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hit an error while trying to load the model: " + ex.Message, "Model Loader", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             //MyModel.Children.Add(MyModel);
         }
         private void Create3DViewPort()
