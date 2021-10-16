@@ -44,5 +44,43 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </Application.Resources>
+		<Style TargetType="Button" x:Key="customButtonOn">
+			<Setter Property="Background" Value="#FF06FCB1"/>
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="FontSize" Value="15"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{TemplateBinding Background}"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        Padding="5"
+                        BorderBrush="#000">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+							</ContentPresenter>
+						</Border>
+
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="#FF06FCB1"/>
+					<Setter Property="Foreground" Value="#fff"/>
+				</Trigger>
+
+				<Trigger Property="IsPressed" Value="True">
+					<Trigger.EnterActions>
+						<BeginStoryboard>
+							<Storyboard>
+
+							</Storyboard>
+						</BeginStoryboard>
+					</Trigger.EnterActions>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</Application.Resources>
 </Application>

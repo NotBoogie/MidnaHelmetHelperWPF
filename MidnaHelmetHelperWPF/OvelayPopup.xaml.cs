@@ -30,12 +30,34 @@ namespace MidnaHelmetHelperWPF
         {
             DragMove();
         }
+        public void closePopup(object sender, RoutedEventArgs e)
+        {
+            //((MainWindow)this.Owner).hideOverlay();
+            this.Hide();
+        }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // do some stuff here.
             // this.IsHitTestVisible = false;
             //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
             //WindowsServices.SetWindowExTransparent(hwnd);
+        }
+        private void toggleVerticalPlacement(object sender, RoutedEventArgs e)
+        {
+            var thin = new System.Windows.Thickness(0, 0, 0, 0);
+            if (HelixViewport.Margin == thin)
+            {
+                // HelixViewport.Height = 1000;
+                var thicc = new System.Windows.Thickness(0, 0, 0, -300);
+                HelixViewport.Margin = thicc;
+                VerticalPlacementButton.Content = "ADJUSTED";
+            }
+            else
+            {
+                //HelixViewport.Height = Double.NaN;
+                HelixViewport.Margin = thin;
+                VerticalPlacementButton.Content = "CENTERED";
+            }
         }
         public void load3dModel(string modelLocation = "")
         {
@@ -45,6 +67,7 @@ namespace MidnaHelmetHelperWPF
             // Model3DGroup MyModel = CurrentHelixObjReader.Read(@"D:\3DModel\dinosaur_FBX\dinosaur.fbx");
             //System.Windows.Media.Media3D.Model3DGroup MyModel = CurrentHelixObjReader.Read(@"C:\Users\Jiji\Desktop\Midna Helmet Helper\Fused Shadow.obj");
             string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            
             if (modelLocation == "")
                 modelLocation = currentDirectory + @"\Models\FusedShadowNoBackTopo.obj";
             try

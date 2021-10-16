@@ -20,23 +20,21 @@
 	<Border Background="#10FFFFFF" CornerRadius="5" BorderBrush="{StaticResource WindowFrameBrush}" BorderThickness="2,0,2,2">
 		<Grid ShowGridLines="False">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="30" />
+				<RowDefinition Height="40" />
 				<RowDefinition/>
 				<RowDefinition Height="auto" />
 			</Grid.RowDefinitions>
 
 			<Border Grid.Row="0" Background="{StaticResource WindowFrameBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
               CornerRadius="5,5,0,0" Margin="-1,0,-1,0" MouseLeftButtonDown="DragWindow">
-				<Grid>
-
-					<TextBlock Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,130,0"
-            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=Title}"/>
-
-				</Grid>
-
+				<StackPanel x:Name="ButtonPanel" Orientation = "Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
+					<Button  x:Name="VerticalPlacementButton" Content="ADJUSTED" Width="85" Height="30" Style="{StaticResource customButton}"  Click="toggleVerticalPlacement" Margin="2"/>
+					<Button  x:Name="ImageButton" Content="X" Width="38" Height="30" Style="{StaticResource customButton}"  Click="closePopup" Margin="2"/>
+					
+				</StackPanel>
 			</Border>
 
-			<h:HelixViewport3D Name ="HelixViewport" Grid.Row="1" MouseLeftButtonDown="Window_MouseLeftButtonDown" Margin="0,0,0,0">
+			<h:HelixViewport3D Name ="HelixViewport"  Grid.Row="1" MouseLeftButtonDown="Window_MouseLeftButtonDown" Margin="0,0,0,-300" Grid.RowSpan="2">
 
 				<h:DefaultLights/>
 				<ModelVisual3D x:Name="model">
