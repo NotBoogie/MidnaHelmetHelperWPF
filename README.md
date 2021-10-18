@@ -1,6 +1,6 @@
 # MidnaHelmetHelperWPF
 
-The app auto loads the content in the /Models folder. If you draw something else that isn't Midna a lot, you can probably just swap out those files for yours
+The app auto loads the content in the /Models folder. If you draw something else that isn't Midna a lot, you can probably just swap out those files for yours. There's no save functionality cause I'm not gonna sink time into that (until either I need it or it gets a lot of asks from people I guess)
 
 Control definitions:
 
@@ -22,7 +22,7 @@ Control definitions:
 
 
 Basic use:
-Position the popup window over your sketch, tweak the model as desired (right click to rotate, mousewheel to zoom in/out, mousewheel click to move the model - note that this affects the actual position of the model in 3d space, so it will mess up your right-click rotation point). The sliders in the main window can be used to get those exact tweaks and each one is a 360 degree turn.
+Position the popup window over your sketch, tweak the model as desired (right click to rotate, mousewheel to zoom in/out, mousewheel click to move the model - note that this affects the actual position of the model in 3d space, so it will mess up your right-click rotation point. I'd recommend just moving the actual window). The sliders in the main window can be used to get those exact tweaks and each one is a 360 degree turn.
 
 TODO: Applying custom textures will always align to the upper left coordinates, haven't figured out how to get around this yet
 TODO: Figure out a non-shit way to control model position for people with smaller screens
