@@ -1,5 +1,7 @@
 # MidnaHelmetHelperWPF
 
+Download release: https://github.com/NotBoogie/MidnaHelmetHelperWPF/releases/tag/1
+
 The app auto loads the content in the /Models folder. If you draw something else that isn't Midna a lot, you can probably just swap out those files for yours. There's no save functionality cause I'm not gonna sink time into that (until either I need it or it gets a lot of asks from people I guess)
 
 Control definitions:
