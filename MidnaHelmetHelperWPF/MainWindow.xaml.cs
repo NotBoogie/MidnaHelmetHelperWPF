@@ -62,8 +62,11 @@ namespace MidnaHelmetHelperWPF
         {
             this.InitializeComponent();
             if (overlayPopup == null)
-            
+            {
+
                 overlayPopup = new OvelayPopup();
+                overlayPopup.myMainWindow = this;
+            }
             
             loadOverlayModel();
             
@@ -318,6 +321,8 @@ namespace MidnaHelmetHelperWPF
                 overlayPopup.HelixViewport.Opacity = Opac;
             }
         }
+        
+        //For XYZ sliders
         private void SlideAll(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (overlayPopupModel != null)
@@ -326,8 +331,14 @@ namespace MidnaHelmetHelperWPF
                 var scaleVal = ScaleSlider.Value / 100;
                 // overlayPopupModel.Transform = new MatrixTransform3D(matrix);
                 overlayPopupModel.Transform = new MatrixTransform3D(CalculateTransformMatrix(ySlider.Value, zSlider.Value, xSlider.Value, scaleVal, scaleVal, scaleVal));
-                
+
             }
+        }
+
+        //For position sliders
+        private void SlidePositionAll(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            overlayPopup.toggleVerticalPlacement();
         }
         private void SlideScale(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -517,13 +528,7 @@ namespace MidnaHelmetHelperWPF
             _source.AddHook(w.HwndHook);
             w.RegisterHotKey(hwnd);
         }
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            // do some stuff here.
-            // this.IsHitTestVisible = false;
-            //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-            //WindowsServices.SetWindowExTransparent(hwnd);
-        }
+
         private double angleTracker;
         private void rotate(object sender, EventArgs e)
         {

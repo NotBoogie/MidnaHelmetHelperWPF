@@ -21,6 +21,8 @@ namespace MidnaHelmetHelperWPF
     /// </summary>
     public partial class OvelayPopup : Window
     {
+
+        public MainWindow myMainWindow;
         public OvelayPopup()
         {
             InitializeComponent();
@@ -42,9 +44,12 @@ namespace MidnaHelmetHelperWPF
             //var hwnd = new System.Windows.Interop.WindowInteropHelper(this).Handle;
             //WindowsServices.SetWindowExTransparent(hwnd);
         }
-        private void toggleVerticalPlacement(object sender, RoutedEventArgs e)
+
+        public void syncWindowPlacement()
         {
+            //TODO figure out how to do this crap properly
             var thin = new System.Windows.Thickness(0, 0, 0, 0);
+           
             if (HelixViewport.Margin == thin)
             {
                 // HelixViewport.Height = 1000;
@@ -58,6 +63,55 @@ namespace MidnaHelmetHelperWPF
                 HelixViewport.Margin = thin;
                 VerticalPlacementButton.Content = "CENTERED";
             }
+        }
+        private void toggleVerticalPlacement(object sender, RoutedEventArgs e)
+        {
+            //TODO figure out a non-shit way to do this
+            bool isCentered = ((string)VerticalPlacementButton.Content == "CENTERED" ? true : false);
+
+            if (isCentered)
+            {
+                VerticalPlacementButton.Content = "ADJUSTED";
+            }
+            else
+            {
+                VerticalPlacementButton.Content = "CENTERED";
+            }
+            toggleVerticalPlacement();
+        }
+        public void toggleVerticalPlacement()
+        {
+            //TODO figure out a non-shit way to do this
+            bool isCentered = ((string)VerticalPlacementButton.Content == "CENTERED" ? true : false);
+            double xpThick = 0;
+            double xnThick = 0;
+            double ypThick = 0;
+            double ynThick = 0;
+
+            if (myMainWindow.xPaddingSlider.Value < 0)
+                xpThick = -myMainWindow.xPaddingSlider.Value;
+
+            if (myMainWindow.xPaddingSlider.Value > 0)
+                xpThick = -myMainWindow.xPaddingSlider.Value;
+
+            if (myMainWindow.yPaddingSlider.Value < 0)
+                ynThick = -myMainWindow.yPaddingSlider.Value;
+
+            if (myMainWindow.yPaddingSlider.Value > 0)
+                ynThick = -myMainWindow.yPaddingSlider.Value;
+
+            var thin = new System.Windows.Thickness(xnThick, ypThick, xpThick, ynThick);
+
+            if (!isCentered)
+            {
+                thin = new System.Windows.Thickness(xnThick, ypThick, xpThick, ynThick-300);
+            }
+            else
+            {
+            }
+
+            HelixViewport.Margin = thin;
+
         }
         public void load3dModel(string modelLocation = "")
         {
