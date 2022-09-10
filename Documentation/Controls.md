@@ -1,17 +1,78 @@
-Control definitions:
 
--LOCK/UNLOCK: Locks the popup window to allow you to draw through it
+# Controls
 
--SHOW/HIDE: Displays the popup window
+<br>
 
--PASTE/CLEAR BG: Takes the image data off of your clipboard and makes it the background of the popup. Useful if you want to just screenshot/snip your sketch's head and position the model as a posed reference
+## Lock  /  Unlock
 
--BASE/CUSTOM (Model): Toggle between the fused shadow and a custom .obj file of your choosing
+Toggles the popup window being locked in place.
 
--BACK/NOBACK: will show/hide the backs of polygons in the viewer. This is so that when you have the model posed over Midna's face, the back part isn't blocking your sketch
+*Allows you to draw through it.*
 
--BASE/LINE/CUSTOM (Texture): Toggle between the base fused shadow texture, a quick line guide version I made, and your own file
+<br>
+<br>
 
--SAVE SCREENSHOT: Saves a screenshot of the popup window, including any custom pasted background
+## Show  /  Hide
 
--HELP PLS: Shows a quick rundown of what the app does in a popup window
+Toggles the visibility of the popup window.
+
+<br>
+<br>
+
+## Paste  /  Clear  (  Background  )
+
+Takes the image data off of your clipboard <br>
+and makes it the background of the popup.
+
+Useful if you want to just screenshot / snip <br>
+your sketch's head and position the model <br>
+as a posed reference.
+
+<br>
+<br>
+
+## Base  /  Custom  (  Model  )
+
+Toggle between the fused shadow and <br>
+a custom  `.obj`  file of your choosing.
+
+<br>
+<br>
+
+## Back  /  Noback
+
+Toggles the visibility of the back of the model.
+
+*This is used to avoid having your view blocked by* <br>
+*the back of Midna's model while drawing her face.*
+
+<br>
+<br>
+
+## Base  /  Line  /  Custom  (  Texture  )
+
+Toggles between the following types:
+
+-   Base fused shadow texture
+
+-   Quick line guide
+
+-   Custom texture
+
+<br>
+<br>
+
+## Save Screenshot 
+
+Takes a screenshot of the popup window, <br>
+including any custom pasted background.
+
+<br>
+<br>
+
+## Help Please
+
+Displays a quick rundown of what <br>
+the app does in a popup window.
+
+<br>
