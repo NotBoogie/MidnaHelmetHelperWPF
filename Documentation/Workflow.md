@@ -1,0 +1,2 @@
+Basic use:
+Position the popup window over your sketch, tweak the model as desired (right click to rotate, mousewheel to zoom in/out, mousewheel click to move the model - note that this affects the actual position of the model in 3d space, so it will mess up your right-click rotation point. I'd recommend just moving the actual window). The sliders in the main window can be used to get those exact tweaks and each one is a 360 degree turn.
