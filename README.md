@@ -1,30 +1,61 @@
-# MidnaHelmetHelperWPF
 
-Download release: https://github.com/NotBoogie/MidnaHelmetHelperWPF/releases/tag/1
+<div align = center>
 
-The app auto loads the content in the /Models folder. If you draw something else that isn't Midna a lot, you can probably just swap out those files for yours. There's no save functionality cause I'm not gonna sink time into that (until either I need it or it gets a lot of asks from people I guess)
+# Midna Helmet <br> Helper WPF
 
-Control definitions:
+*Tool to streamline the imp ass drawing* <br>
+*process, while avoiding fused shadows.*
 
--LOCK/UNLOCK: Locks the popup window to allow you to draw through it
+<br>
+<br>
 
--SHOW/HIDE: Displays the popup window
+[![Button Trailer]][Trailer]   
+[![Button Download]][Download]
 
--PASTE/CLEAR BG: Takes the image data off of your clipboard and makes it the background of the popup. Useful if you want to just screenshot/snip your sketch's head and position the model as a posed reference
+[![Button Workflow]][Workflow]   
+[![Button Controls]][Controls]
 
--BASE/CUSTOM (Model): Toggle between the fused shadow and a custom .obj file of your choosing
+<br>
+<br>
 
--BACK/NOBACK: will show/hide the backs of polygons in the viewer. This is so that when you have the model posed over Midna's face, the back part isn't blocking your sketch
+<img
+    src = 'Resources/Preview.png'
+    width = 420
+/>
+ 
+</div>
 
--BASE/LINE/CUSTOM (Texture): Toggle between the base fused shadow texture, a quick line guide version I made, and your own file
+<br>
+<br>
 
--SAVE SCREENSHOT: Saves a screenshot of the popup window, including any custom pasted background
+## Todo
 
--HELP PLS: Shows a quick rundown of what the app does in a popup window
+<br>
+
+-   Applying custom textures will always align to <br>
+    the upper left coordinates, haven't figured out <br>
+    how to get around this yet.
+
+<br>
+
+-   Figure out a non-shit way to control model <br>
+    position for people with smaller screens.
+
+<br>
 
 
-Basic use:
-Position the popup window over your sketch, tweak the model as desired (right click to rotate, mousewheel to zoom in/out, mousewheel click to move the model - note that this affects the actual position of the model in 3d space, so it will mess up your right-click rotation point. I'd recommend just moving the actual window). The sliders in the main window can be used to get those exact tweaks and each one is a 360 degree turn.
+<!----------------------------------------------------------------------------->
 
-TODO: Applying custom textures will always align to the upper left coordinates, haven't figured out how to get around this yet
-TODO: Figure out a non-shit way to control model position for people with smaller screens
+[Download]: https://github.com/NotBoogie/MidnaHelmetHelperWPF/releases
+[Trailer]: https://twitter.com/i/status/1450492184965181441
+
+[Controls]: Documentation/Controls.md
+[Workflow]: Documentation/Workflow.md
+
+
+<!---------------------------------[ Buttons ]--------------------------------->
+
+[Button Workflow]: https://img.shields.io/badge/Workflow-4479A1?style=for-the-badge&logoColor=white&logo=MLflow
+[Button Controls]: https://img.shields.io/badge/Controls-00B388?style=for-the-badge&logoColor=white&logo=AppleArcade
+[Button Download]: https://img.shields.io/badge/Download-0194E2?style=for-the-badge&logoColor=white&logo=DocuSign
+[Button Trailer]: https://img.shields.io/badge/Trailer-B5314C?style=for-the-badge&logoColor=white&logo=YouTube
